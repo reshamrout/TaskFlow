@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import TaskCard from '../components/TaskCard';
+import TaskForm from '../components/TaskForm';
+import {UserContext} from '../context/UserContext'
 
 const Dashboard = () => {
 
     const tabs = ["All", "Todo", "In Progress", "Completed"];
     const [selected, setSelected] = useState("All");
+    const {setShowForm} = useContext(UserContext);
 
   return (
     <div className='w-screen h-screen overflow-hidden bg-[#F9FAFB]'>
@@ -45,7 +48,10 @@ const Dashboard = () => {
             </div>
 
             <div>
-                <button className='flex gap-3 px-4 py-2 rounded-lg bg-black text-white hover:cursor-pointer'>
+                <button 
+                className='flex gap-3 px-4 py-2 rounded-lg bg-black text-white hover:cursor-pointer'
+                onClick={()=>setShowForm(true)}
+                >
                     <p>+</p>
                     <p>New Task</p>
                 </button>
@@ -55,6 +61,9 @@ const Dashboard = () => {
         {/* Task Card */}
         <div className='mt-10'>
                 <TaskCard/>
+        </div>
+        <div>
+            <TaskForm/>
         </div>
 
     </div>
