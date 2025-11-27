@@ -32,7 +32,6 @@ const TaskCard = () => {
               <div className="cursor-pointer"><MdDelete /></div>
             </div>
             <div className="">
-              
               <button className="flex gap-2 justify-baseline items-center cursor-pointer hover:bg-[#eceff2] px-3 py-1 rounded-lg"
               onClick={()=>setMoreDetails(!moreDetails)}
               >
