@@ -8,28 +8,23 @@ import Home from './pages/Home'
 import { Link } from 'react-router-dom'
 import SignupPage from './pages/SignupPage'
 import Dashboard from './pages/Dashboard'
+import TaskForm from './components/TaskForm'
+import Navbar from './components/Navbar'
+import FeatureCard from './components/FeatureCard'
 
 function App() {
   return (
     <div>
-      <div className='flex my-5'>
-        <div className=' flex gap-2 font-extrabold'>
-          <p>
-            <Link to="/home">Home</Link>
-          </p>
-          <p>
-            <Link to="/login">Login</Link>
-          </p>
-          <p>
-            <Link to="/signup">Signup</Link>
-          </p>
+      
+        <div>
+          <Navbar/>
         </div>
-      </div>
       <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/login' element={<LoginPage/>}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/signup' element={<SignupPage/>}></Route>
+      <Route path='/test' element={<FeatureCard/>}></Route>
       <Route path='*' element={<Home/>}></Route>
     </Routes>
     </div>

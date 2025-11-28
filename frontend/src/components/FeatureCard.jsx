@@ -1,11 +1,12 @@
 import React from 'react'
+import image from '../assets/hometask.png'
 
-const FeatureCard = ({title, icon, desc,}) => {
+const FeatureCard = ({title, description,}) => {
   return (
-    <div className='flex flex-col w-[400px] bg-[#FFFFFF]  border-gray-400/40 border'>
-        <div className='text-5xl px-4 mb-3 mt-5'>{icon}</div>
-        <div className='pl-4 text-lg font-normal'>{title}</div>
-        <div className='pl-4 text-sm mt-2 mb-10 text-[#717182]'>{desc}</div>
+    <div className='flex flex-col w-[400px] h-[200px] justify-center items-center bg-[#FFFFFF] rounded-2xl hover:scale-105 transition-all duration-300  border-gray-400/40 border'>
+        <img src={image} width={100} heigh={100} className='mt-12'></img>
+        <div className=' text-lg font-normal mt-3'>{title}</div>
+        <div className='p-5 text-sm mb-10 text-[#717182] text-justify'>{description}</div>
     </div>
   )
 }

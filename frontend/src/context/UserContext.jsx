@@ -8,7 +8,7 @@ export default function UserContextProvider({children}){
 
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-    const [showForm, setShowForm] = useState(false);
+    const [showForm, setShowForm] = useState(true);
 
     useEffect(()=>{
         const savedUser = localStorage.getItem('user');
