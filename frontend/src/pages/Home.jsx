@@ -38,7 +38,7 @@ const Home = () => {
       </section>
 
       <section className="mt-15 flex flex-col justify-center items-center mb-20">
-            <div className="bg-linear-to-r  from-[#5638F7] to-[#9318F9] w-[75%] rounded-2xl flex flex-col items-center ">
+            <div className="bg-linear-to-r  from-[#5638F7] to-[#9318F9] w-[75%] flex rounded-2xl flex-col items-center ">
                 <p className="mt-10 text-white text-xl">Ready to Get Started?</p>
                 <p className="p-5 text-center w-[50%] text-white/90">Join thousands of users who are already managing their tasks more efficiently. Sign up now and experience the difference.</p>
                 <button className="px-5 py-2 mb-10 text-black bg-white rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer"
