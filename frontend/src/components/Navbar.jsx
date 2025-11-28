@@ -9,12 +9,12 @@ const Navbar = () =>{
 
     const navigate = useNavigate();
 
-    const [login, setLogin] = useState(true);
+    const [login, setLogin] = useState(false);
 
     return(
-        <div>
+        <div className=''>
         
-            <div className='w-full flex justify-between bg-[#ffffff]'>
+            <div className='w-full flex justify-between bg-[#ffffff]/98 fixed'>
                 {login === false ? 
                 (
                     <>
