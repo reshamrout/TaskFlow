@@ -17,10 +17,14 @@ const Home = () => {
             intuitive task management system. Perfect for individuals and teams.
           </p>
           <div className="flex items-center justify-center gap-4">
-            <button className="text-white bg-black px-6 py-2 rounded-lg cursor-pointer">
+            <button className="text-white bg-black px-6 py-2 rounded-lg cursor-pointer"
+            onClick={()=>navigate("/signup")}
+            >
               Start Free Today
             </button>
-            <button className="bg-white px-6 py-2 rounded-lg cursor-pointer hover:bg-[#717182]/10 transition-all duration-300">Sign In</button>
+            <button className="bg-white px-6 py-2 rounded-lg cursor-pointer hover:bg-[#717182]/10 transition-all duration-300"
+            onClick={()=>navigate("/login")}
+            >Sign In</button>
           </div>
         </div>
       </section>
