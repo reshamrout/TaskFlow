@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard'
 import TaskForm from './components/TaskForm'
 import Navbar from './components/Navbar'
 import FeatureCard from './components/FeatureCard'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
@@ -22,7 +23,11 @@ function App() {
       <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/login' element={<LoginPage/>}></Route>
-      <Route path='/dashboard' element={<Dashboard/>}></Route>
+      <Route path='/dashboard' element={
+          <ProtectedRoute>
+          <Dashboard/>
+          </ProtectedRoute>
+        }></Route>
       <Route path='/signup' element={<SignupPage/>}></Route>
       <Route path='*' element={<Home/>}></Route>
     </Routes>
