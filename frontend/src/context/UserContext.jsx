@@ -8,7 +8,7 @@ export default function UserContextProvider({children}){
 
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-    const [showForm, setShowForm] = useState(true);
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(()=>{
         const savedUser = localStorage.getItem('user');
@@ -21,7 +21,7 @@ export default function UserContextProvider({children}){
     const login = (userData, jwtToken) => {
         setUser(userData);
         setToken(jwtToken);
-
+        console.log(token)
         localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("token", jwtToken);
         
