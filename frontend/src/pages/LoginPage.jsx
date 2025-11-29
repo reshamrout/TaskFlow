@@ -48,7 +48,7 @@ const LoginPage = () => {
     <div className='w-screen h-screen bg-[#E8EFFF] flex justify-center items-center'>
 
     <form onSubmit={handleSubmit}>
-        <div className=' bg-white min-w-md  overflow-hidden rounded-3xl'>
+        <div className=' bg-white min-w-md  overflow-hidden rounded-3xl  border-gray-400/40 border shadow-lg'>
             <div className='flex flex-col gap-2 justify-center items-center mt-8'>
                 <img src={loginlogo} className='w-20 h-20 object-cover'></img>
                 <p className='font-semibold'>Welcome Back</p>
