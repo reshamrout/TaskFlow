@@ -1,7 +1,8 @@
 import {SiGoogletasks} from 'react-icons/si'
 import {IoIosLogOut} from 'react-icons/io'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../context/UserContext';
 
 
 
@@ -9,7 +10,13 @@ const Navbar = () =>{
 
     const navigate = useNavigate();
 
+    const {token, logout} = useContext(UserContext);
     const [login, setLogin] = useState(false);
+    useEffect(()=>{
+        if(token) setLogin(true) 
+        else setLogin(false);
+    },[token]);
+
 
     return(
         <div className=''>
@@ -56,6 +63,7 @@ const Navbar = () =>{
                         </div>
                         <div className='flex justify-center items-center mr-10 '>
                             <button
+                            onClick={logout}
                             className='flex gap-3 px-4 py-1  rounded-lg justify-baseline items-center border-gray-300 border hover:bg-gray-200 transition-all duration-300 cursor-pointer'
                             >
                             <IoIosLogOut/>
