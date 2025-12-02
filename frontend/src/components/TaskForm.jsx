@@ -6,7 +6,7 @@ import api from "../services/api";
 import toast from "react-hot-toast";
 
 
-const TaskForm = () =>{
+const TaskForm = ({onSuccess}) =>{
 
     const initial_form = {
         title : "",
@@ -48,10 +48,10 @@ const TaskForm = () =>{
     const handleSubmit = async (e) =>{
         try{
             e.preventDefault();
-            console.log(title, description, status, assignedTo, dueDate);
             const response = await api.post("/task/createTask", {title, description, status, assignedTo, dueDate});
             toast.success("Task Created Successfully");
             setShowForm(false);
+            if(onSuccess) onSuccess();
             setFormData(initial_form);
         }
         catch(error){

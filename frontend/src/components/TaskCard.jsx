@@ -1,28 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEdit, FaRegCalendarAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoPersonOutline, IoTimeOutline } from "react-icons/io5";
+import api from '../services/api'
 
-const TaskCard = () => {
+const TaskCard = ({task}) => {
+
   const [moreDetails, setMoreDetails] = useState(false);
+ 
 
   return (
     <div>
-      <div className="flex flex-col justify-between ml-10 mr-15 bg-[#FFFFFF] py-5 px-8 rounded-lg border-gray-200 shadow hover:shadow-md">
+      <div className="flex flex-col justify-between ml-10 mr-15 mt-5 bg-[#FFFFFF] py-5 px-8 rounded-lg border-gray-200 shadow hover:shadow-md">
         <div className="flex flex-row w-full justify-between">
           <div className="flex flex-col gap-4">
             <div className="flex gap-4 ">
-              <div className="">hehe</div>
+              <div className="">{task.title}</div>
               <div className="px-2 bg-black text-white rounded-lg">
-                In Progress
+                {task.status}
               </div>
             </div>
-            <div className="text-[#717182]">hehehe</div>
+            <div className="text-[#717182]">{task.description}</div>
             <div className="flex flex-row gap-2 text-[#717182] justify-baseline items-center">
               <FaRegCalendarAlt />
               <p>Due:</p>
-              26-11-2025
+              {task.dueDate}
             </div>
           </div>
 
@@ -62,22 +65,22 @@ const TaskCard = () => {
                 <div className="flex gap-2 items-center">
                     <IoPersonOutline/>
                     <p className="text-[#717182]">Created by: </p>
-                    <p>Resham</p>
+                    <p>{task.createdBy.firstname} {task.createdBy.lastname} </p>
                 </div>
                 <div className="flex gap-2 items-center">
                     <IoPersonOutline/>
                     <p className="text-[#717182]">Assigned to: </p>
-                    <p>Resham</p>
+                    <p>{task.assignedTo.firstname} {task.createdBy.lastname}</p>
                 </div>
                 <div className="flex gap-2 items-center ">
                     <IoTimeOutline/>
                     <p className="text-[#717182]">Created at: </p>
-                    <p>26-11-2025</p>
+                    <p>{task.createdAt}</p>
                 </div>
                 <div className="flex gap-2 items-center">
                     <IoTimeOutline/>
                     <p className="text-[#717182]">Updated at: </p>
-                    <p>26-11-2025</p>
+                    <p>{task.updatedAt}</p>
                 </div>
             </div>
 
