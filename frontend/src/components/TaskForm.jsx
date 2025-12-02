@@ -48,6 +48,7 @@ const TaskForm = () =>{
     const handleSubmit = async (e) =>{
         try{
             e.preventDefault();
+            console.log(title, description, status, assignedTo, dueDate);
             const response = await api.post("/task/createTask", {title, description, status, assignedTo, dueDate});
             toast.success("Task Created Successfully");
             setShowForm(false);
@@ -134,12 +135,12 @@ const TaskForm = () =>{
                                 {
                                     user.accountType === "Admin" && 
                                     allUsers.map((u)=>(
-                                        <option key={u.id} value={u.email}>{u.email}</option>
+                                        <option key={u.id} value={u._id}>{u.email}</option>
                                     ))
                                 }
                                 {
                                     user.accountType === "User" && (
-                                        <option value={user.email}>{user.email}</option>
+                                        <option value={user.id}>{user.email}</option>
                                     )
                                 }
                             </select>
