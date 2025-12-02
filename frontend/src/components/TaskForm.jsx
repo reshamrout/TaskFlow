@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react"
 import {IoClose} from 'react-icons/io5';
 import { UserContext } from "../context/UserContext";
 import {TiArrowSortedDown} from 'react-icons/ti'
+import api from "../services/api";
 
 
 const TaskForm = () =>{
@@ -16,6 +17,9 @@ const TaskForm = () =>{
 
     const {title, description, status, assignedTo, dueDate} = formData;
 
+    const {user, token} = useContext(UserContext);
+    
+
     const handleChange = (e) =>{
         setFormData((prev)=>({
             ...prev,
@@ -23,8 +27,13 @@ const TaskForm = () =>{
         }))
     }
 
-    const handleSubmit = () =>{
-
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+          console.log(token);
+        const users = await api.get("/auth/getAllUsers",{
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        console.log(users);
     }
 
     const {showForm, setShowForm} = useContext(UserContext)
@@ -41,7 +50,7 @@ const TaskForm = () =>{
                     onClick={()=>setShowForm(false)}
                     ></IoClose>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className=" flex flex-col gap-2">
                         <label>Title </label>
                         <input
@@ -112,7 +121,6 @@ const TaskForm = () =>{
                         </button>
                         <button
                             className=" text-white bg-black px-4 py-1 rounded-lg cursor-pointer"
-                            onClick={handleSubmit}
                             >
                             Create Task
                         </button>
