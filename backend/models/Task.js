@@ -12,7 +12,7 @@ const TaskSchema = new mongoose.Schema({
     },
     status : {
         type : String,
-        enum : ["Pending", "In Progress", "Completed"],
+        enum : ["Todo", "In Progress", "Completed"],
         default : "Pending",
     },
     dueDate :{
