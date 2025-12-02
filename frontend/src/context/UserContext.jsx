@@ -21,7 +21,6 @@ export default function UserContextProvider({children}){
     const login = (userData, jwtToken) => {
         setUser(userData);
         setToken(jwtToken);
-        console.log(token)
         localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("token", jwtToken);
         
