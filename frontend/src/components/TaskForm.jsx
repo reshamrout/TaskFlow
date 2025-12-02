@@ -1,24 +1,42 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import {IoClose} from 'react-icons/io5';
 import { UserContext } from "../context/UserContext";
 import {TiArrowSortedDown} from 'react-icons/ti'
 import api from "../services/api";
+import toast from "react-hot-toast";
 
 
 const TaskForm = () =>{
 
-    const [formData, setFormData] = useState({
+    const initial_form = {
         title : "",
         description : "",
         status : "",
         assignedTo : "",
         dueDate : "",
-    });
+    }
+    const [formData, setFormData] = useState(initial_form);
+
+    const [allUsers, setAllUsers] = useState(null);
 
     const {title, description, status, assignedTo, dueDate} = formData;
 
-    const {user, token} = useContext(UserContext);
+    const {user, token,showForm, setShowForm} = useContext(UserContext);
+
+    const fetchAllUsers = async () =>{
+        const users = await api.get("/auth/getAllUsers",{
+            //headers: { Authorization: `Bearer ${token}` }
+        });
+        setAllUsers(users.data.users);
+    }
     
+    useEffect(()=>{
+       if(user.accountType === "Admin") fetchAllUsers();
+    },[]);
+
+    useEffect(()=>{
+        setFormData(initial_form);
+    },[showForm])
 
     const handleChange = (e) =>{
         setFormData((prev)=>({
@@ -28,15 +46,24 @@ const TaskForm = () =>{
     }
 
     const handleSubmit = async (e) =>{
-        e.preventDefault();
-          console.log(token);
-        const users = await api.get("/auth/getAllUsers",{
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log(users);
+        try{
+            e.preventDefault();
+            const response = await api.post("/task/createTask", {title, description, status, assignedTo, dueDate});
+            toast.success("Task Created Successfully");
+            setShowForm(false);
+            setFormData(initial_form);
+        }
+        catch(error){
+            if(error.response && error.response.data.message){
+                toast.error(error.response.data.message);
+            }
+            else{
+                console.log(error);
+                toast.error("Something went wrong!!");
+            }
+        }
     }
 
-    const {showForm, setShowForm} = useContext(UserContext)
 
     return(
         <div>
@@ -54,6 +81,7 @@ const TaskForm = () =>{
                     <div className=" flex flex-col gap-2">
                         <label>Title </label>
                         <input
+                        required
                         className="bg-[#f3f3f5] p-2 rounded-lg border-transparent border-2 focus:border-gray-500 outline-none"
                         type="text"
                         name="title"
@@ -66,6 +94,7 @@ const TaskForm = () =>{
                     <div className="flex flex-col gap-2 mt-3">
                         <lable>Description</lable>
                         <textarea
+                        required
                         className="bg-[#f3f3f5] p-2 rounded-lg border-transparent border-2 outline-none focus:border-gray-500"
                         name="description"
                         value={description}
@@ -78,11 +107,13 @@ const TaskForm = () =>{
                         <div className="flex flex-col mt-3 gap-2 relative">
                             <label>Status</label>
                             <select
+                            required
                             className="bg-[#f3f3f5] p-2 rounded-lg outline-none w-[200px] appearance-none"
                             name="status"
                             value={status}
                             onChange={handleChange}
                             >
+                                <option value="" disabled>Select Status</option>
                                 <option value="Todo">Todo</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Completed">Completed</option>
@@ -91,19 +122,33 @@ const TaskForm = () =>{
                         </div>
                         <div className="flex flex-col mt-3 gap-2">
                             <label>Assigned To</label>
-                            <input
+                            <select
+                            required
                             className="bg-[#f3f3f5] p-2 rounded-lg outline-none "
                             type="text"
                             name="assignedTo"
                             value={assignedTo}
                             onChange={handleChange}
                             >
-                            </input>
+                                <option value="" disabled>Select User</option>
+                                {
+                                    user.accountType === "Admin" && 
+                                    allUsers.map((u)=>(
+                                        <option key={u.id} value={u.email}>{u.email}</option>
+                                    ))
+                                }
+                                {
+                                    user.accountType === "User" && (
+                                        <option value={user.email}>{user.email}</option>
+                                    )
+                                }
+                            </select>
                         </div>
                     </div>
                     <div className="flex flex-col mt-3 gap-2">
                           <label>Due Date</label>
                         <input
+                        required
                         className="bg-[#f3f3f5] p-2 outline-none rounded-lg border-transparent border-2 focus:border-gray-500"
                         type="date"
                         name="dueDate"
@@ -125,7 +170,7 @@ const TaskForm = () =>{
                             Create Task
                         </button>
                     </div>
-                   
+
                 </form>
             </div>
         </div>
