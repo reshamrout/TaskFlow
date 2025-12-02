@@ -51,7 +51,7 @@ exports.getAllTasks = async (req, res) => {
             query = {assignedTo : userId};
         }
 
-        const allTasks = await Task.find(query);
+        const allTasks = await Task.find(query).populate("assignedTo", "firstname lastname").populate("createdBy", "firstname lastname");
 
         return res.status(200).json({
             success: true,
