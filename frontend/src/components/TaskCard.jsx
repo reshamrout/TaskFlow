@@ -4,10 +4,31 @@ import { MdDelete } from "react-icons/md";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoPersonOutline, IoTimeOutline } from "react-icons/io5";
 import api from '../services/api'
+import {toast} from 'react-hot-toast';
 
-const TaskCard = ({task}) => {
+const TaskCard = ({task, onSuccess}) => {
 
   const [moreDetails, setMoreDetails] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleDelete = async(taskId) =>{
+    try{
+      const response = await api.delete(`/task/${taskId}`)
+      if(onSuccess) onSuccess();
+      toast.success("Task Deleted Successfully");
+    }
+    catch(error){
+      if(error.response && error.response.data.message){
+        toast.error(error.response.data.message)
+      }
+      else{
+        console.log(error);
+        toast.error("Something went wrong while deleting task");
+      }
+      
+      
+    }
+  }
  
 
   return (
@@ -37,8 +58,8 @@ const TaskCard = ({task}) => {
 
           <div className="flex flex-col gap-4 justify-center items-center">
             <div className="flex gap-4  text-xl">
-              <div className="cursor-pointer"><FaEdit /></div>
-              <div className="cursor-pointer"><MdDelete /></div>
+              <div className="cursor-pointer" onClick={()=>handleEdit(task._id)}><FaEdit /></div>
+              <div className="cursor-pointer" onClick={()=>handleDelete(task._id)}><MdDelete /></div>
             </div>
             <div className="">
               <button className="flex gap-2 justify-baseline items-center cursor-pointer hover:bg-[#eceff2] px-3 py-1 rounded-lg"
@@ -81,12 +102,13 @@ const TaskCard = ({task}) => {
                 <div className="flex gap-2 items-center ">
                     <IoTimeOutline/>
                     <p className="text-[#717182]">Created at: </p>
-                    <p>{new Date (task.createdAt).toLocaleDateString()}</p>
+                    <p>{new Date (task.createdAt).toLocaleString()}</p>
                 </div>
                 <div className="flex gap-2 items-center">
-                    <IoTimeOutline/>
+                  { task.updatedAt && <><IoTimeOutline/>
                     <p className="text-[#717182]">Updated at: </p>
-                    <p>{new Date (task.updatedAt).toLocaleDateString()}</p>
+                    <p>{new Date (task.updatedAt).toLocaleString()}</p></>
+                  }
                 </div>
             </div>
 

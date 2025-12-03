@@ -74,7 +74,7 @@ const Dashboard = () => {
         {/* Task Card */}
         <div className='mt-10'>
                 {
-                    filteredTasks ? (filteredTasks.map((task)=>(<TaskCard key={task.id} task={task} />))) : (<p>No Tasks</p>)
+                    filteredTasks ? (filteredTasks.map((task)=>(<TaskCard key={task.id} task={task} onSuccess={fetchAllTasks}/>))) : (<p>No Tasks</p>)
                     
                 }
         </div>
