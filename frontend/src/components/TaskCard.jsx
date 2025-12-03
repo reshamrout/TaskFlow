@@ -31,7 +31,7 @@ const TaskCard = ({task}) => {
             <div className="flex flex-row gap-2 text-[#717182] justify-baseline items-center">
               <FaRegCalendarAlt />
               <p>Due:</p>
-              {task.dueDate}
+              {new Date (task.dueDate).toLocaleDateString()}
             </div>
           </div>
 
@@ -81,12 +81,12 @@ const TaskCard = ({task}) => {
                 <div className="flex gap-2 items-center ">
                     <IoTimeOutline/>
                     <p className="text-[#717182]">Created at: </p>
-                    <p>{task.createdAt}</p>
+                    <p>{new Date (task.createdAt).toLocaleDateString()}</p>
                 </div>
                 <div className="flex gap-2 items-center">
                     <IoTimeOutline/>
                     <p className="text-[#717182]">Updated at: </p>
-                    <p>{task.updatedAt}</p>
+                    <p>{new Date (task.updatedAt).toLocaleDateString()}</p>
                 </div>
             </div>
 
