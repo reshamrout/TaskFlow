@@ -27,7 +27,6 @@ const TaskCard = ({task, onSuccess, onEdit}) => {
     }
   }
 
-
   return (
     <div>
       <div className="flex flex-col justify-between ml-10 mr-15 mt-5 bg-[#FFFFFF] py-5 px-8 rounded-lg border-gray-200 shadow hover:shadow-md">

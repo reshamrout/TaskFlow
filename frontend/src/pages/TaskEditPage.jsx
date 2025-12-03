@@ -64,7 +64,6 @@ const TaskEditPage = ({task, onClose, onSuccess}) =>{
           <div className="font-bold">Edit Task</div>
           <IoClose className="text-lg cursor-pointer" onClick={onClose} />
         </div>
-
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
             <label>Title</label>
