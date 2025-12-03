@@ -9,23 +9,18 @@ import { UserContext } from '../context/UserContext';
 const Navbar = () =>{
 
     const navigate = useNavigate();
-
     const {token, logout} = useContext(UserContext);
-    const [login, setLogin] = useState(false);
-    useEffect(()=>{
-        if(token) setLogin(true) 
-        else setLogin(false);
-    },[token]);
+    const isLoggedIn = Boolean(token);
 
 
     return(
         <div className=''>
         
             <div className='w-full flex justify-between bg-[#ffffff]/98 fixed'>
-                {login === false ? 
+                {isLoggedIn === false ? 
                 (
                     <>
-                        <div className='flex gap-3 ml-10 my-3  justify-baseline items-center '
+                        <div className='flex gap-3 ml-10 my-3  justify-baseline items-center'
                             onClick={()=>navigate("/")}
                         >
                             <SiGoogletasks
@@ -59,7 +54,7 @@ const Navbar = () =>{
                     <>
                         <div className='flex flex-col ml-10 my-3 '>
                             <p className='text-[#4F39F6] text-lg font-semibold'>Task Manager</p>
-                            <p className='text-[#787888] font-medium'>Welcome Back, Resham</p>
+                            <p className='text-[#787888] font-medium'>Welcome Back, {}</p>
                         </div>
                         <div className='flex justify-center items-center mr-10 '>
                             <button

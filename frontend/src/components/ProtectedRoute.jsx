@@ -1,16 +1,14 @@
 import React, { useContext } from 'react'
 import {UserContext} from '../context/UserContext'
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 
 const ProtectedRoute = ({children}) => {
 
-    const {token} = useContext(UserContext);
+    const {token, loading} = useContext(UserContext);
 
-          if(!token) return  (
-                <Navigate to={"/login"}/>
-          )
-  return children
+    if(loading) return <p>Loading....</p>
+    return token ? <Outlet/> : <Navigate to="/login"/>
   
 }
 

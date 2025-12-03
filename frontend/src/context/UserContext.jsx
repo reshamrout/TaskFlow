@@ -9,13 +9,14 @@ export default function UserContextProvider({children}){
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         const savedUser = localStorage.getItem('user');
         const savedToken = localStorage.getItem('token')
         if(savedUser) setUser(JSON.parse(savedUser));
         if(savedToken) setToken(savedToken);
-
+        setLoading(false);
     },[]);
 
     const login = (userData, jwtToken) => {
@@ -38,7 +39,9 @@ export default function UserContextProvider({children}){
         login,
         logout,
         showForm,
-        setShowForm
+        setShowForm,
+        loading,
+        setLoading
     }
 
     return(

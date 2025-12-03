@@ -23,11 +23,9 @@ function App() {
       <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/login' element={<LoginPage/>}></Route>
-      <Route path='/dashboard' element={
-          <ProtectedRoute>
-          <Dashboard/>
-          </ProtectedRoute>
-        }></Route>
+      <Route element={<ProtectedRoute/>}>
+        <Route path='/dashboard' element={<Dashboard/>}></Route>
+      </Route>
       <Route path='/signup' element={<SignupPage/>}></Route>
       <Route path='*' element={<Home/>}></Route>
     </Routes>

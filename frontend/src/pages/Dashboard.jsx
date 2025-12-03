@@ -25,11 +25,11 @@ const Dashboard = () => {
         <div className='grid grid-cols-1 *:w-90 *:h-30 *:p-7 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10 *:bg-[#FFFFFF] *:rounded-2xl *:border-gray-200 *:shadow' >
             <div className=' flex flex-col p-5 rounded-2xl h-[100px] gap-2'>
                 <p>Total Tasks</p>
-                <p className='text-2xl'>{5}</p>
+                <p className='text-2xl'>{allTasks ? allTasks.length : "0"}</p>
             </div>
             <div className='flex flex-col p-5 gap-2'>
                 <p>Todo</p>
-                <p className='text-2xl'>{2}</p>
+                <p className='text-2xl'>{}</p>
             </div>
             <div className='flex flex-col p-5 gap-2'>
                 <p>In Progress</p>
