@@ -9,7 +9,7 @@ import { UserContext } from '../context/UserContext';
 const Navbar = () =>{
 
     const navigate = useNavigate();
-    const {token, logout} = useContext(UserContext);
+    const {token, logout, user} = useContext(UserContext);
     const isLoggedIn = Boolean(token);
 
 
@@ -54,7 +54,7 @@ const Navbar = () =>{
                     <>
                         <div className='flex flex-col ml-10 my-3 '>
                             <p className='text-[#4F39F6] text-lg font-semibold'>Task Manager</p>
-                            <p className='text-[#787888] font-medium'>Welcome Back, {}</p>
+                            <p className='text-[#787888] font-medium'><span className='font-normal'>Welcome Back,</span> {user.firstname} {user.lastname}</p>
                         </div>
                         <div className='flex justify-center items-center mr-10 '>
                             <button
