@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import TaskCard from '../components/TaskCard';
 import TaskForm from '../components/TaskForm';
 import {UserContext} from '../context/UserContext'
+import TaskEditPage from './TaskEditPage'
 import api from '../services/api'
 
 const Dashboard = () => {
@@ -10,6 +11,8 @@ const Dashboard = () => {
     const [selected, setSelected] = useState("All");
     const {setShowForm} = useContext(UserContext);
     const [allTasks, setAllTasks] = useState(null);
+    const [editTask, setEditTask] = useState(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     const fetchAllTasks = async() =>{
         const response = await api.get("/task/getAllTasks");
@@ -19,6 +22,16 @@ const Dashboard = () => {
     useEffect(()=>{
         fetchAllTasks();
     },[])
+
+    const openEdit = (task) =>{
+        setEditTask(task);
+        setIsEditModalOpen(true);
+    }
+
+    const closeEdit = () =>{
+        setEditTask(null);
+        setIsEditModalOpen(false);
+    }
 
     const filteredTasks = selected === "All" ? allTasks : allTasks.filter((task)=>task.status === selected);
 
@@ -74,12 +87,20 @@ const Dashboard = () => {
         {/* Task Card */}
         <div className='mt-10'>
                 {
-                    filteredTasks ? (filteredTasks.map((task)=>(<TaskCard key={task.id} task={task} onSuccess={fetchAllTasks}/>))) : (<p>No Tasks</p>)
+                    filteredTasks ? (filteredTasks.map((task)=>(<TaskCard key={task.id} task={task} onSuccess={fetchAllTasks} onEdit={()=>openEdit(task)}/>))) : (<p>No Tasks</p>)
                     
                 }
         </div>
         <div>
             <TaskForm onSuccess={fetchAllTasks}/>
+        </div>
+        <div>
+            {isEditModalOpen && 
+                <TaskEditPage task={editTask} onClose={closeEdit} onSuccess={()=>{
+                    fetchAllTasks();
+                    closeEdit();
+                }}/>
+            }
         </div>
 
     </div>

@@ -6,10 +6,9 @@ import { IoPersonOutline, IoTimeOutline } from "react-icons/io5";
 import api from '../services/api'
 import {toast} from 'react-hot-toast';
 
-const TaskCard = ({task, onSuccess}) => {
+const TaskCard = ({task, onSuccess, onEdit}) => {
 
   const [moreDetails, setMoreDetails] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
 
   const handleDelete = async(taskId) =>{
     try{
@@ -24,12 +23,10 @@ const TaskCard = ({task, onSuccess}) => {
       else{
         console.log(error);
         toast.error("Something went wrong while deleting task");
-      }
-      
-      
+      } 
     }
   }
- 
+
 
   return (
     <div>
@@ -58,7 +55,7 @@ const TaskCard = ({task, onSuccess}) => {
 
           <div className="flex flex-col gap-4 justify-center items-center">
             <div className="flex gap-4  text-xl">
-              <div className="cursor-pointer" onClick={()=>handleEdit(task._id)}><FaEdit /></div>
+              <div className="cursor-pointer" onClick={onEdit}><FaEdit /></div>
               <div className="cursor-pointer" onClick={()=>handleDelete(task._id)}><MdDelete /></div>
             </div>
             <div className="">
