@@ -20,24 +20,26 @@ const Dashboard = () => {
         fetchAllTasks();
     },[])
 
+    const filteredTasks = selected === "All" ? allTasks : allTasks.filter((task)=>task.status === selected);
+
   return (
     <div className='w-screen h-screen bg-[#F9FAFB] pt-20'>
         <div className='grid grid-cols-1 *:w-90 *:h-30 *:p-7 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10 *:bg-[#FFFFFF] *:rounded-2xl *:border-gray-200 *:shadow' >
             <div className=' flex flex-col p-5 rounded-2xl h-[100px] gap-2'>
                 <p>Total Tasks</p>
-                <p className='text-2xl'>{allTasks ? allTasks.length : "0"}</p>
+                <p className='text-2xl'>{allTasks ? allTasks.length : "NA"}</p>
             </div>
             <div className='flex flex-col p-5 gap-2'>
                 <p>Todo</p>
-                <p className='text-2xl'>{}</p>
+                <p className='text-2xl text-blue-500'>{allTasks ? allTasks.filter((task)=>task.status === "Todo").length : "NA"}</p>
             </div>
             <div className='flex flex-col p-5 gap-2'>
                 <p>In Progress</p>
-                <p className='text-2xl'>{2}</p>
+                <p className='text-2xl text-yellow-600'>{allTasks ? allTasks.filter((task)=>task.status === "In Progress").length : "NA"}</p>
             </div>
             <div className='flex flex-col p-5 gap-2'>
                 <p>Completed</p>
-                <p className='text-2xl'>{1}</p>
+                <p className='text-2xl text-green-600'>{allTasks ? allTasks.filter((task)=>task.status === "Completed").length : "NA"}</p>
             </div>
         </div>
         <div className='flex justify-between items-center ml-10 mr-15'>
@@ -72,7 +74,8 @@ const Dashboard = () => {
         {/* Task Card */}
         <div className='mt-10'>
                 {
-                    allTasks ? (allTasks.map((task)=>(<TaskCard key={task.id} task={task} />))) : (<p>No Tasks</p>)
+                    filteredTasks ? (filteredTasks.map((task)=>(<TaskCard key={task.id} task={task} />))) : (<p>No Tasks</p>)
+                    
                 }
         </div>
         <div>
