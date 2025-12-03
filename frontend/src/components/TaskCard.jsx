@@ -17,7 +17,13 @@ const TaskCard = ({task}) => {
           <div className="flex flex-col gap-4">
             <div className="flex gap-4 ">
               <div className="">{task.title}</div>
-              <div className="px-2 bg-black text-white rounded-lg">
+              <div
+              className={`px-4 py-1 rounded-2xl text-white uppercase
+                ${task.status === "Todo" && "bg-red-400"} 
+                ${task.status === "In Progress" && "bg-orange-400"} 
+                ${task.status === "Completed" && "bg-green-400"}
+              `}
+              >
                 {task.status}
               </div>
             </div>
